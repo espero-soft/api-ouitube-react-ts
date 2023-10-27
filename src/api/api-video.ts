@@ -32,3 +32,63 @@ export const getVideos = async (page=1, limit=5) =>{
         }
     }
 }
+export const addVideos = async (formData: FormData) =>{
+    try {
+        const response = await ouitube.request({
+            method: "POST",
+            data: formData,
+            callback: (progress: any) =>{ console.log({progress});}
+          })
+       
+
+          return await response.json()
+        
+    } catch (error) {
+        // Gérez les erreurs réseau ici
+        console.log('Network error.');
+        return {
+            isSuccess: false,
+            error
+        }
+    }
+}
+export const updateVideos = async (uniqueCode: string,formData: any) =>{
+    try {
+        const response = await ouitube.request({
+            url: "/video/"+uniqueCode,
+            method: "PUT",
+            data: formData,
+            callback: (progress: any) =>{ console.log({progress});}
+          })
+       
+
+          return await response.json()
+        
+    } catch (error) {
+        // Gérez les erreurs réseau ici
+        console.log('Network error.');
+        return {
+            isSuccess: false,
+            error
+        }
+    }
+}
+export const deleteVideo = async (uniqueCode: string) =>{
+    try {
+        const response = await ouitube.request({
+            url: "/video/"+uniqueCode,
+            method: "DELETE"
+        })
+       
+
+          return await response.json()
+        
+    } catch (error) {
+        // Gérez les erreurs réseau ici
+        console.log('Network error.');
+        return {
+            isSuccess: false,
+            error
+        }
+    }
+}
